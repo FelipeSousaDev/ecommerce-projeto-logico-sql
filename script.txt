@@ -1,0 +1,101 @@
+
+--TBCLIENTE
+
+CREATE TABLE [dbo].[CLIENTE](
+	[IDCLIENTE] [int] NOT NULL,
+	[NOME] [varchar](45) NOT NULL,
+	[IDENTIFICAÇÃO] [varchar](50) NOT NULL,
+	[ENDEREÇO] [varchar](50) NOT NULL,
+	[CLIENTE_PJ] [nchar](10) NULL,
+ CONSTRAINT [PK_CLIENTE] PRIMARY KEY CLUSTERED 
+(
+	[IDCLIENTE] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, 
+IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, 
+OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+
+
+--DISPONIBILIZANDO 
+
+CREATE TABLE [dbo].[DisponibilizandoProduto](
+	[fornecedor_idFornecedor] [int] NOT NULL,
+	[produto_idProduto] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[fornecedor_idFornecedor] ASC,
+	[produto_idProduto] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF,
+ ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+- ESTOQUE
+CREATE TABLE [dbo].[ESTOQUE](
+	[idEstoque] [int] IDENTITY(1,1) NOT NULL,
+	[Local] [varchar](100) NULL,
+
+- Pedido
+
+CREATE TABLE [dbo].[PEDIDO](
+	[idPEDIDO] [int] NOT NULL,
+	[cliente_idCliente] [int] NULL,
+	[Status_Pedido] [varchar](50) NULL,
+	[Descricao] [text] NULL,
+	[Frete] [decimal](10, 2) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[idPEDIDO] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+
+- PRODUTO
+
+CREATE TABLE [dbo].[PRODUTO](
+	[idProduto] [int] IDENTITY(1,1) NOT NULL,
+	[Categoria] [varchar](100) NULL,
+	[Descricao] [text] NULL,
+	[Valor] [decimal](10, 2) NULL,
+
+- PRODUTO PEDIDO
+
+CREATE TABLE [dbo].[ProdutoPedido](
+	[Produto_idProduto] [int] NOT NULL,
+	[Pedido_idPedido] [int] NOT NULL,
+	[Quantidade] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Produto_idProduto] ASC,
+	[Pedido_idPedido] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+- PRODUTOPORVENDEDOR
+
+CREATE TABLE [dbo].[ProdutosPorVendedor](
+	[Terceiro_Vendedor_idTerceiro_Vendedor] [int] NOT NULL,
+	[Produto_idProduto] [int] NOT NULL,
+	[Quantidade] [int] NULL,
+
+- PRODUTO TEM ESTOQUE 
+
+CREATE TABLE [dbo].[ProdutoTemEstoque](
+	[Produto_idProduto] [int] NOT NULL,
+	[Estoque_idEstoque] [int] NOT NULL,
+	[Quantidade] [int] NULL,
+
+- TERCEIRO_VENDEDOR
+
+CREATE TABLE [dbo].[TERCEIRO_VENDEDOR](
+	[idTerceiro_Vendedor] [int] IDENTITY(1,1) NOT NULL,
+	[RazaoSocial] [varchar](255) NULL,
+	[Local] [varchar](100) NULL,
+
+
+
+
+
+
+
+
+
+

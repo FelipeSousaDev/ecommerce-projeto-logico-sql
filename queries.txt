@@ -1,0 +1,36 @@
+1. Quantos produtos estão disponíveis em um determinado estoque?
+
+SELECT E.Local, P.Descricao, PE.Quantidade
+FROM ProdutoTemEstoque PE
+JOIN ESTOQUE E ON PE.Estoque_idEstoque = E.idEstoque
+JOIN PRODUTO P ON PE.Produto_idProduto = P.idProduto
+WHERE E.Local = 'Nome do Local';
+
+2. Lista de pedidos feitos por um determinado cliente com o status do pedido
+
+SELECT C.NOME, P.idPEDIDO, P.Status_Pedido, P.Descricao, P.Frete
+FROM PEDIDO P
+JOIN CLIENTE C ON P.cliente_idCliente = C.IDCLIENTE
+WHERE C.NOME = 'Nome do Cliente';
+
+3. Quais produtos um fornecedor específico está disponibilizando?
+
+SELECT F.RazaoSocial, P.Descricao, P.Categoria, P.Valor
+FROM DisponibilizandoProduto DP
+JOIN FORNECEDOR F ON DP.fornecedor_idFornecedor = F.idFORNECEDOR
+JOIN PRODUTO P ON DP.produto_idProduto = P.idProduto
+WHERE F.RazaoSocial = 'Razão Social do Fornecedor';
+
+4. Quantos produtos foram vendidos por um vendedor específico?
+
+SELECT V.RazaoSocial, P.Descricao, PV.Quantidade
+FROM ProdutosPorVendedor PV
+JOIN TERCEIRO_VENDEDOR V ON PV.Terceiro_Vendedor_idTerceiro_Vendedor = V.idTerceiro_Vendedor
+JOIN PRODUTO P ON PV.Produto_idProduto = P.idProduto
+WHERE V.RazaoSocial = 'Razão Social do Vendedor';
+
+5. Total de pedidos e valor de frete por status de pedido
+
+SELECT Status_Pedido, COUNT(*) AS TotalPedidos, SUM(Frete) AS TotalFrete
+FROM PEDIDO
+GROUP BY Status_Pedido;
